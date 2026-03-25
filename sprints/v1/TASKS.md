@@ -12,9 +12,10 @@
   - Files: app/page.tsx, components/api-key-input.tsx, components/pdf-upload.tsx, components/generate-button.tsx
   - Completed: 2026-03-25 — Built landing page with masked API key input (show/hide toggle), PDF drag-and-drop upload zone, and Generate button with disabled state logic
 
-- [ ] Task 3: Create the PDF parsing API route with text extraction (P0)
+- [x] Task 3: Create the PDF parsing API route with text extraction (P0)
   - Acceptance: POST `/api/parse-pdf` accepts a PDF file (multipart form data), returns extracted text content as JSON. Handles errors gracefully (invalid file, empty PDF, too large). Max file size: 20MB.
   - Files: app/api/parse-pdf/route.ts, lib/pdf-parser.ts
+  - Completed: 2026-03-25 — Built PDF parser with pdf-parse, API route with validation (type, size, content), PdfParseError class
 
 - [ ] Task 4: Build the notebook generation prompt engine (P0)
   - Acceptance: Given extracted paper text, constructs a structured prompt for gpt-5.4 that requests all 9 notebook sections (metadata, contributions, prerequisites, math, implementation, synthetic data, experiments, ablations, reproducibility). Prompt is modular and stored separately from API logic.
