@@ -1,4 +1,5 @@
-import pdfParse from "pdf-parse";
+import * as pdfParseModule from "pdf-parse";
+const pdfParse = (pdfParseModule as any).default || pdfParseModule;
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 

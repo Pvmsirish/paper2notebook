@@ -32,9 +32,10 @@
   - Files: lib/notebook-builder.ts, lib/types/notebook.ts
   - Completed: 2026-03-25 — Built notebook assembler with fenced block parser, nbformat v4 output, markdown/code cell support
 
-- [ ] Task 7: Wire up the full end-to-end flow with progress UI (P0)
+- [x] Task 7: Wire up the full end-to-end flow with progress UI (P0)
   - Acceptance: User enters API key → uploads PDF → clicks Generate → sees progress states (Parsing PDF... / Analyzing paper... / Generating notebook... / Building .ipynb...) → receives download. Errors display as toast notifications. Generate button is disabled during processing.
   - Files: app/page.tsx (update), components/progress-display.tsx, lib/hooks/use-generate.ts
+  - Completed: 2026-03-25 — Full e2e flow with useGenerate hook, 4-step progress display, error toast, button disabling during processing
 
 - [ ] Task 8: Add .ipynb download button and "Open in Colab" link (P1)
   - Acceptance: After generation, user sees two buttons: "Download .ipynb" (triggers browser download) and "Open in Colab" (opens notebook in Google Colab via Gist upload or colab URL scheme). Download produces a valid file that opens in Jupyter/Colab without errors.

@@ -4,15 +4,29 @@ import * as React from "react";
 import { ApiKeyInput } from "@/components/api-key-input";
 import { PdfUpload } from "@/components/pdf-upload";
 import { GenerateButton } from "@/components/generate-button";
+import { ProgressDisplay } from "@/components/progress-display";
+import { useGenerate, GenerateStep } from "@/lib/hooks/use-generate";
+import { X } from "lucide-react";
 
 export default function Home() {
   const [apiKey, setApiKey] = React.useState("");
   const [file, setFile] = React.useState<File | null>(null);
+  const { step, error, notebookJson, generate, reset } = useGenerate();
 
-  const canGenerate = apiKey.trim().length > 0 && file !== null;
+  const isProcessing =
+    step !== GenerateStep.IDLE &&
+    step !== GenerateStep.DONE &&
+    step !== GenerateStep.ERROR;
+  const canGenerate =
+    apiKey.trim().length > 0 && file !== null && !isProcessing;
 
-  const handleGenerate = () => {
-    // Will be wired up in Task 7
+  const handleGenerate = async () => {
+    if (!file || !apiKey.trim()) return;
+    await generate(apiKey, file);
+  };
+
+  const handleDismissError = () => {
+    reset();
   };
 
   return (
@@ -37,7 +51,30 @@ export default function Home() {
         <div className="space-y-6">
           <ApiKeyInput value={apiKey} onChange={setApiKey} />
           <PdfUpload file={file} onFileChange={setFile} />
-          <GenerateButton disabled={!canGenerate} onClick={handleGenerate} />
+          <GenerateButton
+            disabled={!canGenerate}
+            onClick={handleGenerate}
+          />
+
+          {(isProcessing || step === GenerateStep.DONE) && (
+            <ProgressDisplay step={step} />
+          )}
+
+          {error && (
+            <div
+              data-testid="error-toast"
+              className="flex items-start gap-2 rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive"
+            >
+              <p className="flex-1">{error}</p>
+              <button
+                onClick={handleDismissError}
+                className="shrink-0 text-destructive/70 hover:text-destructive"
+                aria-label="Dismiss error"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </main>
