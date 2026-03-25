@@ -1,6 +1,6 @@
 # Sprint v1 — Tasks
 
-## Status: Not Started
+## Status: Complete
 
 - [x] Task 1: Initialize Next.js 14 project with Tailwind CSS + shadcn/ui (P0)
   - Acceptance: `npm run dev` starts without errors, Tailwind renders correctly, shadcn/ui Button component works
@@ -47,6 +47,7 @@
   - Files: app/globals.css, app/layout.tsx, components/generate-button.tsx, app/page.tsx
   - Completed: 2026-03-25 — Loading spinner on generate button, dark mode auto-detection, responsive layout, error toast with dismiss
 
-- [ ] Task 10: Add sample PDF demo mode for first-time users (P2)
+- [x] Task 10: Add sample PDF demo mode for first-time users (P2)
   - Acceptance: A "Try with sample paper" button loads a bundled sample PDF (e.g., Attention Is All You Need abstract/excerpt) and runs the full flow without requiring a real PDF upload. Helps users understand the output before using their own papers.
   - Files: public/samples/sample-paper.pdf, components/demo-button.tsx, app/page.tsx (update)
+  - Completed: 2026-03-25 — Demo button fetches bundled sample PDF and loads it into the upload form

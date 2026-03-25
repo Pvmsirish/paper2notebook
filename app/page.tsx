@@ -6,6 +6,7 @@ import { PdfUpload } from "@/components/pdf-upload";
 import { GenerateButton } from "@/components/generate-button";
 import { ProgressDisplay } from "@/components/progress-display";
 import { DownloadSection } from "@/components/download-section";
+import { DemoButton } from "@/components/demo-button";
 import { useGenerate, GenerateStep } from "@/lib/hooks/use-generate";
 import { X } from "lucide-react";
 
@@ -52,6 +53,10 @@ export default function Home() {
         <div className="space-y-6">
           <ApiKeyInput value={apiKey} onChange={setApiKey} />
           <PdfUpload file={file} onFileChange={setFile} />
+          <DemoButton
+            disabled={isProcessing}
+            onLoadSample={setFile}
+          />
           <GenerateButton
             disabled={!canGenerate}
             loading={isProcessing}
