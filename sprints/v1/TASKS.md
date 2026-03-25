@@ -22,9 +22,10 @@
   - Files: lib/prompt-engine.ts, lib/prompts/notebook-system-prompt.ts, lib/prompts/notebook-user-prompt.ts
   - Completed: 2026-03-25 — Modular prompt engine with system prompt (9 sections), user prompt builder, and buildPrompt() interface
 
-- [ ] Task 5: Create the OpenAI integration API route for notebook generation (P0)
+- [x] Task 5: Create the OpenAI integration API route for notebook generation (P0)
   - Acceptance: POST `/api/generate` accepts PDF text + OpenAI API key, calls gpt-5.4 with the prompt engine output, returns the raw LLM response. API key is passed via `Authorization` header (never logged or stored). Includes error handling for invalid key, rate limits, and timeout (5 min max).
   - Files: app/api/generate/route.ts, lib/openai-client.ts
+  - Completed: 2026-03-25 — OpenAI client wrapper with input validation, API route with auth header, error handling for 401/429/timeout
 
 - [ ] Task 6: Build the .ipynb file assembler (P0)
   - Acceptance: Takes gpt-5.4 response (markdown + code blocks) and converts it into a valid .ipynb JSON structure (nbformat v4). Output opens correctly in Jupyter and Google Colab. Handles markdown cells, code cells, and metadata.
