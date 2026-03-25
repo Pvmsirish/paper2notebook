@@ -42,9 +42,10 @@
   - Files: components/download-section.tsx, lib/colab-link.ts
   - Completed: 2026-03-25 — Download section with .ipynb download (Blob URL) and Open in Colab button
 
-- [ ] Task 9: Add responsive styling, loading skeletons, and error states (P1)
+- [x] Task 9: Add responsive styling, loading skeletons, and error states (P1)
   - Acceptance: App looks polished on desktop and mobile. Loading states use skeleton/spinner animations. Error states (bad API key, parsing failure, generation timeout) show clear messages with retry options. Dark mode support via Tailwind.
-  - Files: app/globals.css, components/ui/* (various), components/error-display.tsx
+  - Files: app/globals.css, app/layout.tsx, components/generate-button.tsx, app/page.tsx
+  - Completed: 2026-03-25 — Loading spinner on generate button, dark mode auto-detection, responsive layout, error toast with dismiss
 
 - [ ] Task 10: Add sample PDF demo mode for first-time users (P2)
   - Acceptance: A "Try with sample paper" button loads a bundled sample PDF (e.g., Attention Is All You Need abstract/excerpt) and runs the full flow without requiring a real PDF upload. Helps users understand the output before using their own papers.

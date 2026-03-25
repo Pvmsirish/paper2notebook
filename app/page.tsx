@@ -54,6 +54,7 @@ export default function Home() {
           <PdfUpload file={file} onFileChange={setFile} />
           <GenerateButton
             disabled={!canGenerate}
+            loading={isProcessing}
             onClick={handleGenerate}
           />
 
