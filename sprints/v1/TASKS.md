@@ -27,9 +27,10 @@
   - Files: app/api/generate/route.ts, lib/openai-client.ts
   - Completed: 2026-03-25 — OpenAI client wrapper with input validation, API route with auth header, error handling for 401/429/timeout
 
-- [ ] Task 6: Build the .ipynb file assembler (P0)
+- [x] Task 6: Build the .ipynb file assembler (P0)
   - Acceptance: Takes gpt-5.4 response (markdown + code blocks) and converts it into a valid .ipynb JSON structure (nbformat v4). Output opens correctly in Jupyter and Google Colab. Handles markdown cells, code cells, and metadata.
   - Files: lib/notebook-builder.ts, lib/types/notebook.ts
+  - Completed: 2026-03-25 — Built notebook assembler with fenced block parser, nbformat v4 output, markdown/code cell support
 
 - [ ] Task 7: Wire up the full end-to-end flow with progress UI (P0)
   - Acceptance: User enters API key → uploads PDF → clicks Generate → sees progress states (Parsing PDF... / Analyzing paper... / Generating notebook... / Building .ipynb...) → receives download. Errors display as toast notifications. Generate button is disabled during processing.
