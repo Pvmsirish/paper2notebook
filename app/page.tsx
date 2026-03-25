@@ -5,6 +5,7 @@ import { ApiKeyInput } from "@/components/api-key-input";
 import { PdfUpload } from "@/components/pdf-upload";
 import { GenerateButton } from "@/components/generate-button";
 import { ProgressDisplay } from "@/components/progress-display";
+import { DownloadSection } from "@/components/download-section";
 import { useGenerate, GenerateStep } from "@/lib/hooks/use-generate";
 import { X } from "lucide-react";
 
@@ -58,6 +59,10 @@ export default function Home() {
 
           {(isProcessing || step === GenerateStep.DONE) && (
             <ProgressDisplay step={step} />
+          )}
+
+          {step === GenerateStep.DONE && notebookJson && (
+            <DownloadSection notebookJson={notebookJson} />
           )}
 
           {error && (

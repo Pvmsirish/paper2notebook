@@ -37,9 +37,10 @@
   - Files: app/page.tsx (update), components/progress-display.tsx, lib/hooks/use-generate.ts
   - Completed: 2026-03-25 — Full e2e flow with useGenerate hook, 4-step progress display, error toast, button disabling during processing
 
-- [ ] Task 8: Add .ipynb download button and "Open in Colab" link (P1)
+- [x] Task 8: Add .ipynb download button and "Open in Colab" link (P1)
   - Acceptance: After generation, user sees two buttons: "Download .ipynb" (triggers browser download) and "Open in Colab" (opens notebook in Google Colab via Gist upload or colab URL scheme). Download produces a valid file that opens in Jupyter/Colab without errors.
   - Files: components/download-section.tsx, lib/colab-link.ts
+  - Completed: 2026-03-25 — Download section with .ipynb download (Blob URL) and Open in Colab button
 
 - [ ] Task 9: Add responsive styling, loading skeletons, and error states (P1)
   - Acceptance: App looks polished on desktop and mobile. Loading states use skeleton/spinner animations. Error states (bad API key, parsing failure, generation timeout) show clear messages with retry options. Dark mode support via Tailwind.
