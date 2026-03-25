@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm ~/.claude/skills/prd.md)",
+      "Read(//c/Users/siris/.claude/skills/**)",
+      "Bash(npx next:*)",
+      "Bash(npm audit:*)",
+      "Bash(pip install:*)",
+      "Bash(PYTHONUTF8=1 semgrep --config auto app/ lib/ components/ --quiet 2>&1)"
+    ]
+  }
+}
