@@ -17,9 +17,10 @@
   - Files: app/api/parse-pdf/route.ts, lib/pdf-parser.ts
   - Completed: 2026-03-25 — Built PDF parser with pdf-parse, API route with validation (type, size, content), PdfParseError class
 
-- [ ] Task 4: Build the notebook generation prompt engine (P0)
+- [x] Task 4: Build the notebook generation prompt engine (P0)
   - Acceptance: Given extracted paper text, constructs a structured prompt for gpt-5.4 that requests all 9 notebook sections (metadata, contributions, prerequisites, math, implementation, synthetic data, experiments, ablations, reproducibility). Prompt is modular and stored separately from API logic.
   - Files: lib/prompt-engine.ts, lib/prompts/notebook-system-prompt.ts, lib/prompts/notebook-user-prompt.ts
+  - Completed: 2026-03-25 — Modular prompt engine with system prompt (9 sections), user prompt builder, and buildPrompt() interface
 
 - [ ] Task 5: Create the OpenAI integration API route for notebook generation (P0)
   - Acceptance: POST `/api/generate` accepts PDF text + OpenAI API key, calls gpt-5.4 with the prompt engine output, returns the raw LLM response. API key is passed via `Authorization` header (never logged or stored). Includes error handling for invalid key, rate limits, and timeout (5 min max).
