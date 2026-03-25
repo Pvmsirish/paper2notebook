@@ -7,9 +7,10 @@
   - Files: package.json, tailwind.config.js, app/layout.tsx, app/page.tsx, components/ui/button.tsx
   - Completed: 2026-03-25 — Initialized Next.js 14 with Tailwind v3, shadcn/ui theming, Button component, and utility functions
 
-- [ ] Task 2: Build the landing page with API key input and PDF upload form (P0)
+- [x] Task 2: Build the landing page with API key input and PDF upload form (P0)
   - Acceptance: Page shows app title/description, an API key input field (masked), a PDF file upload dropzone, and a "Generate Notebook" button. API key is stored in React state only (never sent to localStorage or cookies). Upload accepts only .pdf files.
   - Files: app/page.tsx, components/api-key-input.tsx, components/pdf-upload.tsx, components/generate-button.tsx
+  - Completed: 2026-03-25 — Built landing page with masked API key input (show/hide toggle), PDF drag-and-drop upload zone, and Generate button with disabled state logic
 
 - [ ] Task 3: Create the PDF parsing API route with text extraction (P0)
   - Acceptance: POST `/api/parse-pdf` accepts a PDF file (multipart form data), returns extracted text content as JSON. Handles errors gracefully (invalid file, empty PDF, too large). Max file size: 20MB.
