@@ -17,9 +17,10 @@
   - Files: lib/sanitize-input.ts, tests/unit/sanitize-input.test.ts
   - Completed: 2026-03-26 — Sanitizer with dangerous tag stripping (10 tag names), 9 injection line patterns, 100K char truncation; 16 unit tests
 
-- [ ] Task 4: Harden the system prompt against injection (P0)
+- [x] Task 4: Harden the system prompt against injection (P0)
   - Acceptance: System prompt includes explicit instruction boundary markers, a directive to ignore instructions in the paper text, and uses a per-request randomized boundary token. `buildPrompt()` now accepts a boundary token parameter. Unit tests verify boundary token is present in output.
   - Files: lib/prompts/notebook-system-prompt.ts (update), lib/prompts/notebook-user-prompt.ts (update), lib/prompt-engine.ts (update), tests/unit/prompt-engine.test.ts (update)
+  - Completed: 2026-03-26 — Added anti-injection directive to system prompt, replaced <paper> tags with randomized boundary tokens (crypto.randomBytes), updated all 12 tests
 
 - [ ] Task 5: Build output scanner for dangerous code patterns (P0)
   - Acceptance: `scanOutput(response)` scans generated code for dangerous patterns: `os.system`, `subprocess`, `eval`, `exec`, `__import__`, `requests.get`, `urllib`, `socket`, `open('/etc/`, `os.remove`, base64 strings >100 chars. Returns `{ warnings: string[] }` listing each flagged pattern with line context. Does NOT block output — only flags. Unit tests cover all patterns.

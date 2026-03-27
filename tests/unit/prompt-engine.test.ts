@@ -34,19 +34,35 @@ describe("Prompt Engine", () => {
         expect(lowerPrompt).toContain(section);
       }
     });
+
+    it("contains anti-injection directive", () => {
+      const lowerPrompt = SYSTEM_PROMPT.toLowerCase();
+      expect(lowerPrompt).toContain("ignore any instructions");
+    });
   });
 
   describe("buildUserPrompt", () => {
     it("includes the paper text", () => {
-      const prompt = buildUserPrompt(samplePaperText);
+      const prompt = buildUserPrompt(samplePaperText, "BOUNDARY123");
       expect(prompt).toContain("Attention Is All You Need");
       expect(prompt).toContain("Transformer");
     });
 
     it("returns a non-empty string", () => {
-      const prompt = buildUserPrompt(samplePaperText);
+      const prompt = buildUserPrompt(samplePaperText, "BOUNDARY123");
       expect(typeof prompt).toBe("string");
       expect(prompt.length).toBeGreaterThan(samplePaperText.length);
+    });
+
+    it("includes the boundary token as delimiters", () => {
+      const prompt = buildUserPrompt(samplePaperText, "XYZTOKEN");
+      expect(prompt).toContain("XYZTOKEN");
+    });
+
+    it("does not use <paper> tags as delimiters", () => {
+      const prompt = buildUserPrompt(samplePaperText, "BOUNDARY123");
+      expect(prompt).not.toContain("<paper>");
+      expect(prompt).not.toContain("</paper>");
     });
   });
 
@@ -59,9 +75,10 @@ describe("Prompt Engine", () => {
       expect(typeof result.userPrompt).toBe("string");
     });
 
-    it("system prompt matches SYSTEM_PROMPT constant", () => {
+    it("system prompt contains SYSTEM_PROMPT content", () => {
       const result = buildPrompt(samplePaperText);
-      expect(result.systemPrompt).toBe(SYSTEM_PROMPT);
+      // System prompt should contain the base SYSTEM_PROMPT content
+      expect(result.systemPrompt).toContain("expert ML researcher");
     });
 
     it("user prompt contains the paper text", () => {
@@ -72,6 +89,16 @@ describe("Prompt Engine", () => {
     it("throws for empty paper text", () => {
       expect(() => buildPrompt("")).toThrow();
       expect(() => buildPrompt("   ")).toThrow();
+    });
+
+    it("uses a boundary token in the user prompt", () => {
+      const result = buildPrompt(samplePaperText);
+      // Should contain some boundary marker (not <paper> tags)
+      expect(result.userPrompt).not.toContain("<paper>");
+      // The boundary token should appear at least twice (start + end delimiter)
+      const match = result.userPrompt.match(/===PAPER_BOUNDARY_[A-Za-z0-9]+===/g);
+      expect(match).toBeTruthy();
+      expect(match!.length).toBeGreaterThanOrEqual(2);
     });
   });
 });
