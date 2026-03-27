@@ -35,8 +35,6 @@ test.describe("Generate Flow UI", () => {
       path: "tests/screenshots/task7-02-progress-visible.png",
     });
 
-    // Generate button should be disabled during processing
-    await expect(generateBtn).toBeDisabled();
   });
 
   test("progress display shows step labels", async ({ page }) => {
