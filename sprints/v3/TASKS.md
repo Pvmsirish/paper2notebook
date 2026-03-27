@@ -7,9 +7,10 @@
   - Files: lib/openai-client.ts, lib/security-headers.ts, app/page.tsx
   - Completed: 2026-03-27 — Fixed gpt-5.4 max_completion_tokens param, CSP dev-mode unsafe-eval+ws:, responsive padding/sizing; 102/105 tests pass (3 pre-existing pdf-parser failures)
 
-- [ ] Task 2: Write E2E Playwright test for full user flow (P0)
+- [x] Task 2: Write E2E Playwright test for full user flow (P0)
   - Acceptance: Playwright test covers: load page → enter API key → click "Try with sample paper" → click Generate → see progress spinner → see download section with review warning → screenshot at each step (6+ screenshots saved to `tests/screenshots/task2-*`). Uses mocked APIs (no real OpenAI call). All assertions pass.
   - Files: tests/e2e/full-flow.spec.ts
+  - Completed: 2026-03-27 — 3 E2E tests (happy flow, security warnings, error handling) with 9 screenshots, all passing
 
 - [ ] Task 3: Build the real quality test — interactive browser (P0)
   - Acceptance: `npx playwright test tests/e2e/quality-test.spec.ts --headed` opens a visible browser. Test pauses and prompts user to enter their OpenAI API key. Test uploads `C:\Users\siris\Downloads\1706.pdf`. Test clicks Generate and waits up to 5 minutes. After generation, validates: (1) valid JSON notebook, (2) nbformat v4 structure with `cells` array, (3) 8+ cells, (4) at least one code cell with Python, (5) review warning visible on page. Takes screenshots at each step. Prints validation report to console.
