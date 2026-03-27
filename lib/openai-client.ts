@@ -28,7 +28,7 @@ export async function generateNotebook({
   const { systemPrompt, userPrompt } = buildPrompt(paperText);
 
   const response = await client.chat.completions.create({
-    model: "gpt-4o",
+    model: "gpt-5.4",
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt },

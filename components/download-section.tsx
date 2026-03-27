@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Download, ExternalLink } from "lucide-react";
-import { downloadNotebook, generateColabUrl } from "@/lib/colab-link";
+import { Download, ShieldAlert } from "lucide-react";
+import { downloadNotebook } from "@/lib/colab-link";
 
 interface DownloadSectionProps {
   notebookJson: string;
@@ -17,35 +17,26 @@ export function DownloadSection({
     downloadNotebook(notebookJson, filename);
   };
 
-  const handleOpenColab = () => {
-    const url = generateColabUrl(notebookJson);
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   return (
     <div data-testid="download-section" className="w-full space-y-3">
       <p className="text-sm font-medium text-center text-green-600">
         Notebook generated successfully!
       </p>
-      <div className="flex gap-3">
-        <Button
-          data-testid="download-button"
-          onClick={handleDownload}
-          className="flex-1"
-        >
-          <Download className="mr-2 h-4 w-4" />
-          Download .ipynb
-        </Button>
-        <Button
-          data-testid="colab-button"
-          variant="outline"
-          onClick={handleOpenColab}
-          className="flex-1"
-        >
-          <ExternalLink className="mr-2 h-4 w-4" />
-          Open in Colab
-        </Button>
+      <div
+        data-testid="review-warning"
+        className="flex items-center gap-2 rounded-md bg-muted p-3 text-xs text-muted-foreground"
+      >
+        <ShieldAlert className="h-4 w-4 shrink-0" />
+        <span>Review generated code before running. AI-generated notebooks may contain errors or unexpected behavior.</span>
       </div>
+      <Button
+        data-testid="download-button"
+        onClick={handleDownload}
+        className="w-full"
+      >
+        <Download className="mr-2 h-4 w-4" />
+        Download .ipynb
+      </Button>
     </div>
   );
 }

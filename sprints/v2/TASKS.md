@@ -37,9 +37,10 @@
   - Files: app/api/generate/route.ts (update), app/api/parse-pdf/route.ts (update)
   - Completed: 2026-03-26 — Implemented as part of Task 6; 100K char limit, generic error messages only, console.error for internal logging
 
-- [ ] Task 8: Upgrade LLM to gpt-5.4 and remove "Open in Colab" (P1)
+- [x] Task 8: Upgrade LLM to gpt-5.4 and remove "Open in Colab" (P1)
   - Acceptance: `lib/openai-client.ts` uses model `gpt-5.4` instead of `gpt-4o`. "Open in Colab" button removed from DownloadSection. `generateColabUrl()` removed from `lib/colab-link.ts`. Download button remains. Add "Review generated code before running" warning text above the download button. Tests updated.
-  - Files: lib/openai-client.ts (update), components/download-section.tsx (update), lib/colab-link.ts (update), tests/e2e/landing-page.spec.ts (update if needed)
+  - Files: lib/openai-client.ts (update), components/download-section.tsx (update), lib/colab-link.ts (update), tests/unit/colab-link.test.ts (update)
+  - Completed: 2026-03-26 — Upgraded to gpt-5.4, removed Colab button + generateColabUrl(), added review warning with ShieldAlert icon above download button
 
 - [ ] Task 9: Add generation history with IndexedDB (P1)
   - Acceptance: After successful generation, notebook + metadata (id, createdAt, paperTitle, fileName, warnings) saved to IndexedDB store `paper2notebook/history`. History panel below the main form shows last 10 entries with paper title, date, and a "Download" button. Max 50 entries with FIFO eviction. Uses `idb` library. Clearing history is possible via a "Clear History" button.
