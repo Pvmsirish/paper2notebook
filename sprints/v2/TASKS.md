@@ -12,9 +12,10 @@
   - Files: lib/rate-limiter.ts, middleware.ts (update)
   - Completed: 2026-03-26 — RateLimiter class with per-IP tracking, window reset, retryAfter; wired into middleware; 6 unit tests
 
-- [ ] Task 3: Build input sanitization for prompt injection defense (P0)
+- [x] Task 3: Build input sanitization for prompt injection defense (P0)
   - Acceptance: `sanitizeInput(text)` strips XML/HTML-like tags (`<system>`, `<paper>`, `</instructions>`, etc.), removes lines matching prompt override patterns ("ignore previous instructions", "you are now", "system:"), truncates to 100,000 chars. Returns `{ sanitized: string, strippedCount: number }`. Unit tests cover all patterns.
   - Files: lib/sanitize-input.ts, tests/unit/sanitize-input.test.ts
+  - Completed: 2026-03-26 — Sanitizer with dangerous tag stripping (10 tag names), 9 injection line patterns, 100K char truncation; 16 unit tests
 
 - [ ] Task 4: Harden the system prompt against injection (P0)
   - Acceptance: System prompt includes explicit instruction boundary markers, a directive to ignore instructions in the paper text, and uses a per-request randomized boundary token. `buildPrompt()` now accepts a boundary token parameter. Unit tests verify boundary token is present in output.
