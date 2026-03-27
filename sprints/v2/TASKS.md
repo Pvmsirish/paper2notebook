@@ -7,9 +7,10 @@
   - Files: middleware.ts, lib/security-headers.ts
   - Completed: 2026-03-26 — Security headers helper + Next.js middleware with same-origin CORS enforcement, 7 integration tests
 
-- [ ] Task 2: Add rate limiting to API routes (P0)
+- [x] Task 2: Add rate limiting to API routes (P0)
   - Acceptance: `/api/parse-pdf` limited to 10 requests/minute per IP. `/api/generate` limited to 5 requests/minute per IP. Returns 429 with `{ error: "Too many requests. Please try again later." }` when exceeded. Uses in-memory store (no external deps).
   - Files: lib/rate-limiter.ts, middleware.ts (update)
+  - Completed: 2026-03-26 — RateLimiter class with per-IP tracking, window reset, retryAfter; wired into middleware; 6 unit tests
 
 - [ ] Task 3: Build input sanitization for prompt injection defense (P0)
   - Acceptance: `sanitizeInput(text)` strips XML/HTML-like tags (`<system>`, `<paper>`, `</instructions>`, etc.), removes lines matching prompt override patterns ("ignore previous instructions", "you are now", "system:"), truncates to 100,000 chars. Returns `{ sanitized: string, strippedCount: number }`. Unit tests cover all patterns.
