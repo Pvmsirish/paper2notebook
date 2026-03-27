@@ -27,8 +27,12 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Copy external packages needed at runtime (serverComponentsExternalPackages)
-COPY --from=builder /app/node_modules/pdf-parse ./node_modules/pdf-parse
+# Copy external packages needed at runtime (serverExternalPackages)
+# pdf-parse and all its dependencies including bundled pdfjs
+COPY --from=deps /app/node_modules/pdf-parse ./node_modules/pdf-parse
+COPY --from=deps /app/node_modules/node-ensure ./node_modules/node-ensure
+COPY --from=deps /app/node_modules/debug ./node_modules/debug
+COPY --from=deps /app/node_modules/ms ./node_modules/ms
 
 USER nextjs
 
