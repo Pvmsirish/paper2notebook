@@ -11,7 +11,12 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Stage 3: Production runtime
+# Stage 3: Install pdf-parse separately to guarantee v1.1.1
+FROM node:20-alpine AS pdfparse
+WORKDIR /tmp/pdfparse
+RUN npm init -y && npm install pdf-parse@1.1.1
+
+# Stage 4: Production runtime
 FROM node:20-alpine AS runner
 WORKDIR /app
 
@@ -27,9 +32,8 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Copy external packages needed at runtime (serverExternalPackages)
-# pdf-parse bundles its own pdfjs, just need to copy it from the builder
-COPY --from=builder /app/node_modules/pdf-parse ./node_modules/pdf-parse
+# Copy pdf-parse v1.1.1 (bundles its own pdfjs, no browser API deps)
+COPY --from=pdfparse /tmp/pdfparse/node_modules/pdf-parse ./node_modules/pdf-parse
 
 USER nextjs
 
