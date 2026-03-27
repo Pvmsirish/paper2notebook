@@ -1,6 +1,6 @@
 # Sprint v2 — Tasks
 
-## Status: In Progress
+## Status: Complete
 
 - [x] Task 1: Add security headers and CORS middleware (P0)
   - Acceptance: All responses include Content-Security-Policy, X-Content-Type-Options (nosniff), X-Frame-Options (DENY), Referrer-Policy, Permissions-Policy. CORS restricted to same-origin. Verify headers with `curl -I`.
@@ -47,6 +47,7 @@
   - Files: lib/history-store.ts, components/history-panel.tsx, app/page.tsx (update), lib/hooks/use-generate.ts (update)
   - Completed: 2026-03-26 — IndexedDB history with FIFO eviction (50 max), HistoryPanel showing last 10 entries with download buttons, auto-save after generation, clear button; 7 unit tests
 
-- [ ] Task 10: Add E2E tests for security features (P2)
+- [x] Task 10: Add E2E tests for security features (P2)
   - Acceptance: Playwright tests verify: (1) rate limit returns 429 after repeated requests, (2) security headers present on responses, (3) warning banner appears when output contains flagged patterns (mock the API), (4) history panel shows after generation, (5) download warning text visible. Screenshots captured.
-  - Files: tests/e2e/security.spec.ts, tests/e2e/history.spec.ts
+  - Files: tests/e2e/security.spec.ts, tests/e2e/history.spec.ts, playwright.config.ts
+  - Completed: 2026-03-27 — 7 E2E tests (5 security, 2 history) with mocked APIs, CSP bypass for Playwright, 6 screenshots captured; semgrep clean
