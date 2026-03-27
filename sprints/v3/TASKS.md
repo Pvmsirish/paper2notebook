@@ -41,9 +41,10 @@
   - Files: terraform/*.tf
   - Completed: 2026-03-27 — 8 Terraform files: VPC with 2 AZs, ECR, ECS Fargate (512 CPU/1024 MiB), ALB, security groups, IAM roles, CloudWatch logs
 
-- [ ] Task 9: Create GitHub Actions CD workflow for auto-deploy to AWS (P0)
+- [x] Task 9: Create GitHub Actions CD workflow for auto-deploy to AWS (P0)
   - Acceptance: `.github/workflows/deploy.yml` triggers on push to `main` (after CI passes). Steps: (1) configure AWS credentials from GitHub secrets, (2) login to ECR, (3) docker build + tag + push to ECR, (4) update ECS service with `--force-new-deployment`. Uses GitHub secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`. Includes instructions in PR description for setting up the secrets.
   - Files: .github/workflows/deploy.yml
+  - Completed: 2026-03-27 — CD workflow with concurrency control, CI gate, ECR push (sha + latest tags), ECS force-new-deployment
 
 - [ ] Task 10: Add minimal unit + integration tests for untested modules (P1)
   - Acceptance: Unit tests added for `lib/notebook-builder.ts` (valid nbformat output, code cell detection, markdown cell detection — 5+ tests). Integration test for `POST /api/parse-pdf` with a real sample PDF (returns text, rejects non-PDF, rejects oversized — 3+ tests). Integration test for `POST /api/generate` with mocked OpenAI (returns content+warnings, rejects missing auth, rejects empty text — 3+ tests). All tests pass with `npx vitest run`.
