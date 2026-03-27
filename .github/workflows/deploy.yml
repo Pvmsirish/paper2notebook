@@ -2,7 +2,8 @@ name: Deploy to AWS
 
 on:
   push:
-    branches: [main]
+    branches: [master]
+  workflow_dispatch:
 
 # Only allow one deployment at a time
 concurrency:
