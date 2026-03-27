@@ -24,6 +24,7 @@ export interface UseGenerateResult {
   step: GenerateStep;
   error: string | null;
   notebookJson: string | null;
+  warnings: string[];
   generate: (apiKey: string, file: File) => Promise<void>;
   reset: () => void;
 }
@@ -32,17 +33,20 @@ export function useGenerate(): UseGenerateResult {
   const [step, setStep] = useState<GenerateStep>(GenerateStep.IDLE);
   const [error, setError] = useState<string | null>(null);
   const [notebookJson, setNotebookJson] = useState<string | null>(null);
+  const [warnings, setWarnings] = useState<string[]>([]);
 
   const reset = useCallback(() => {
     setStep(GenerateStep.IDLE);
     setError(null);
     setNotebookJson(null);
+    setWarnings([]);
   }, []);
 
   const generate = useCallback(async (apiKey: string, file: File) => {
     try {
       setError(null);
       setNotebookJson(null);
+      setWarnings([]);
 
       // Step 1: Parse PDF
       setStep(GenerateStep.PARSING);
@@ -54,8 +58,16 @@ export function useGenerate(): UseGenerateResult {
       });
 
       if (!parseRes.ok) {
-        const data = await parseRes.json();
-        throw new Error(data.error || "Failed to parse PDF");
+        const text = await parseRes.text();
+        try {
+          const data = JSON.parse(text);
+          throw new Error(data.error || "Failed to parse PDF");
+        } catch (e) {
+          if (e instanceof SyntaxError) {
+            throw new Error("Failed to parse PDF — server returned an unexpected response");
+          }
+          throw e;
+        }
       }
 
       const { text: paperText } = await parseRes.json();
@@ -75,11 +87,19 @@ export function useGenerate(): UseGenerateResult {
       });
 
       if (!generateRes.ok) {
-        const data = await generateRes.json();
-        throw new Error(data.error || "Failed to generate notebook");
+        const text = await generateRes.text();
+        try {
+          const data = JSON.parse(text);
+          throw new Error(data.error || "Failed to generate notebook");
+        } catch (e) {
+          if (e instanceof SyntaxError) {
+            throw new Error("Failed to generate notebook — server returned an unexpected response");
+          }
+          throw e;
+        }
       }
 
-      const { content } = await generateRes.json();
+      const { content, warnings: apiWarnings } = await generateRes.json();
 
       // Step 4: Build .ipynb
       setStep(GenerateStep.BUILDING);
@@ -90,6 +110,7 @@ export function useGenerate(): UseGenerateResult {
       const json = JSON.stringify(notebook, null, 2);
 
       setNotebookJson(json);
+      setWarnings(apiWarnings || []);
       setStep(GenerateStep.DONE);
     } catch (err) {
       const message =
@@ -99,5 +120,5 @@ export function useGenerate(): UseGenerateResult {
     }
   }, []);
 
-  return { step, error, notebookJson, generate, reset };
+  return { step, error, notebookJson, warnings, generate, reset };
 }

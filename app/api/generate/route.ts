@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateNotebook } from "@/lib/openai-client";
+import { sanitizeInput } from "@/lib/sanitize-input";
+import { scanOutput } from "@/lib/scan-output";
+
+const MAX_PAPER_LENGTH = 100_000;
 
 export const maxDuration = 300; // 5 minutes
 
@@ -33,13 +37,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const content = await generateNotebook({ apiKey, paperText });
+    // Enforce paper text length limit
+    if (paperText.length > MAX_PAPER_LENGTH) {
+      return NextResponse.json(
+        { error: "Paper text is too long. Maximum 100,000 characters supported." },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json({ content });
+    // Layer 1: Sanitize input to mitigate prompt injection
+    const { sanitized } = sanitizeInput(paperText);
+
+    // Generate notebook with sanitized text
+    const content = await generateNotebook({ apiKey, paperText: sanitized });
+
+    // Layer 3: Scan output for dangerous patterns
+    const { warnings } = scanOutput(content);
+
+    return NextResponse.json({ content, warnings });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Unknown error";
+    const message = error instanceof Error ? error.message : "";
 
-    // Handle specific OpenAI errors
+    // Handle specific OpenAI errors — return generic messages only
     if (message.includes("401") || message.includes("Incorrect API key")) {
       return NextResponse.json(
         { error: "Invalid API key. Please check your OpenAI API key." },
@@ -59,8 +78,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Generic error — never leak internal details
+    console.error("Generate error:", message);
     return NextResponse.json(
-      { error: "Failed to generate notebook. " + message },
+      { error: "Failed to generate notebook. Please try again." },
       { status: 500 }
     );
   }

@@ -27,9 +27,10 @@
   - Files: lib/scan-output.ts, tests/unit/scan-output.test.ts
   - Completed: 2026-03-26 — Output scanner with 14 dangerous patterns + base64 detection, only scans Python code blocks, includes line context in warnings; 15 unit tests
 
-- [ ] Task 6: Wire sanitization + output scanning into the generate pipeline (P0)
+- [x] Task 6: Wire sanitization + output scanning into the generate pipeline (P0)
   - Acceptance: `/api/generate` calls `sanitizeInput()` on paperText before prompt construction, calls `scanOutput()` on LLM response before returning. Response shape changes to `{ content: string, warnings: string[] }`. Frontend displays warnings in a yellow alert box above the download section. Existing tests updated.
-  - Files: app/api/generate/route.ts (update), lib/hooks/use-generate.ts (update), app/page.tsx (update), components/security-warnings.tsx, tests/integration/api-generate.test.ts (update)
+  - Files: app/api/generate/route.ts (update), lib/hooks/use-generate.ts (update), app/page.tsx (update), components/security-warnings.tsx
+  - Completed: 2026-03-26 — Wired sanitizeInput() + scanOutput() into generate route, added SecurityWarnings component, useGenerate now tracks warnings state
 
 - [ ] Task 7: Sanitize error messages and add paper text length limit (P0)
   - Acceptance: `/api/generate` error responses never include raw error messages — only predefined user-friendly strings. Paper text over 100,000 chars returns 400 with `{ error: "Paper text is too long. Maximum 100,000 characters supported." }`. Internal errors logged to console, not returned to client. Unit test verifies no raw messages leak.

@@ -7,13 +7,15 @@ import { GenerateButton } from "@/components/generate-button";
 import { ProgressDisplay } from "@/components/progress-display";
 import { DownloadSection } from "@/components/download-section";
 import { DemoButton } from "@/components/demo-button";
+import { SecurityWarnings } from "@/components/security-warnings";
 import { useGenerate, GenerateStep } from "@/lib/hooks/use-generate";
 import { X } from "lucide-react";
 
 export default function Home() {
   const [apiKey, setApiKey] = React.useState("");
   const [file, setFile] = React.useState<File | null>(null);
-  const { step, error, notebookJson, generate, reset } = useGenerate();
+  const { step, error, notebookJson, warnings, generate, reset } =
+    useGenerate();
 
   const isProcessing =
     step !== GenerateStep.IDLE &&
@@ -65,6 +67,10 @@ export default function Home() {
 
           {(isProcessing || step === GenerateStep.DONE) && (
             <ProgressDisplay step={step} />
+          )}
+
+          {step === GenerateStep.DONE && warnings.length > 0 && (
+            <SecurityWarnings warnings={warnings} />
           )}
 
           {step === GenerateStep.DONE && notebookJson && (
