@@ -22,9 +22,10 @@
   - Files: lib/prompts/notebook-system-prompt.ts (update), lib/prompts/notebook-user-prompt.ts (update), lib/prompt-engine.ts (update), tests/unit/prompt-engine.test.ts (update)
   - Completed: 2026-03-26 — Added anti-injection directive to system prompt, replaced <paper> tags with randomized boundary tokens (crypto.randomBytes), updated all 12 tests
 
-- [ ] Task 5: Build output scanner for dangerous code patterns (P0)
+- [x] Task 5: Build output scanner for dangerous code patterns (P0)
   - Acceptance: `scanOutput(response)` scans generated code for dangerous patterns: `os.system`, `subprocess`, `eval`, `exec`, `__import__`, `requests.get`, `urllib`, `socket`, `open('/etc/`, `os.remove`, base64 strings >100 chars. Returns `{ warnings: string[] }` listing each flagged pattern with line context. Does NOT block output — only flags. Unit tests cover all patterns.
   - Files: lib/scan-output.ts, tests/unit/scan-output.test.ts
+  - Completed: 2026-03-26 — Output scanner with 14 dangerous patterns + base64 detection, only scans Python code blocks, includes line context in warnings; 15 unit tests
 
 - [ ] Task 6: Wire sanitization + output scanning into the generate pipeline (P0)
   - Acceptance: `/api/generate` calls `sanitizeInput()` on paperText before prompt construction, calls `scanOutput()` on LLM response before returning. Response shape changes to `{ content: string, warnings: string[] }`. Frontend displays warnings in a yellow alert box above the download section. Existing tests updated.
