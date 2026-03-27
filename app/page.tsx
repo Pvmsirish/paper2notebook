@@ -35,18 +35,18 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8">
-      <div className="w-full max-w-md space-y-8">
+    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-8 sm:px-8">
+      <div className="w-full max-w-md sm:max-w-lg space-y-8">
         <div className="text-center space-y-2">
           <h1
             data-testid="app-title"
-            className="text-4xl font-bold tracking-tight"
+            className="text-3xl sm:text-4xl font-bold tracking-tight"
           >
             Paper2Notebook
           </h1>
           <p
             data-testid="app-description"
-            className="text-lg text-muted-foreground"
+            className="text-base sm:text-lg text-muted-foreground"
           >
             Upload a research paper PDF and generate a production-quality
             Jupyter notebook that implements the paper&apos;s core algorithms.

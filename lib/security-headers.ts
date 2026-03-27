@@ -4,16 +4,21 @@
 export function getSecurityHeaders(): Headers {
   const headers = new Headers();
 
+  const isDev = process.env.NODE_ENV === "development";
+
   // Restrict resource loading to same-origin + inline styles (needed for Tailwind)
+  // In development, Next.js HMR requires 'unsafe-eval' and ws: connections
   headers.set(
     "Content-Security-Policy",
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline'",
+      isDev
+        ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+        : "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self'",
-      "connect-src 'self'",
+      isDev ? "connect-src 'self' ws:" : "connect-src 'self'",
       "frame-ancestors 'none'",
     ].join("; ")
   );

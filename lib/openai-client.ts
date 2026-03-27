@@ -33,7 +33,7 @@ export async function generateNotebook({
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt },
     ],
-    max_tokens: 16000,
+    max_completion_tokens: 16000,
     temperature: 0.2,
   });
 
