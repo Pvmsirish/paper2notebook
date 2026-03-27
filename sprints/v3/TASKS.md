@@ -36,9 +36,10 @@
   - Files: docker-compose.yml
   - Completed: 2026-03-27 — Single service with health check (wget), port 3000
 
-- [ ] Task 8: Write Terraform config for AWS ECS Fargate (P0)
+- [x] Task 8: Write Terraform config for AWS ECS Fargate (P0)
   - Acceptance: `terraform/` directory contains: `main.tf` (provider + VPC + subnets), `ecr.tf` (repository), `ecs.tf` (cluster + task def + service), `alb.tf` (load balancer + target group + listener), `security.tf` (security groups), `iam.tf` (execution role + task role), `logs.tf` (CloudWatch log group), `variables.tf` (region, app name, image tag), `outputs.tf` (ALB DNS name, ECR URL). `terraform validate` passes.
   - Files: terraform/*.tf
+  - Completed: 2026-03-27 — 8 Terraform files: VPC with 2 AZs, ECR, ECS Fargate (512 CPU/1024 MiB), ALB, security groups, IAM roles, CloudWatch logs
 
 - [ ] Task 9: Create GitHub Actions CD workflow for auto-deploy to AWS (P0)
   - Acceptance: `.github/workflows/deploy.yml` triggers on push to `main` (after CI passes). Steps: (1) configure AWS credentials from GitHub secrets, (2) login to ECR, (3) docker build + tag + push to ECR, (4) update ECS service with `--force-new-deployment`. Uses GitHub secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`. Includes instructions in PR description for setting up the secrets.
