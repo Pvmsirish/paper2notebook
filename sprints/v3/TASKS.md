@@ -12,9 +12,10 @@
   - Files: tests/e2e/full-flow.spec.ts
   - Completed: 2026-03-27 — 3 E2E tests (happy flow, security warnings, error handling) with 9 screenshots, all passing
 
-- [ ] Task 3: Build the real quality test — interactive browser (P0)
+- [x] Task 3: Build the real quality test — interactive browser (P0)
   - Acceptance: `npx playwright test tests/e2e/quality-test.spec.ts --headed` opens a visible browser. Test pauses and prompts user to enter their OpenAI API key. Test uploads `C:\Users\siris\Downloads\1706.pdf`. Test clicks Generate and waits up to 5 minutes. After generation, validates: (1) valid JSON notebook, (2) nbformat v4 structure with `cells` array, (3) 8+ cells, (4) at least one code cell with Python, (5) review warning visible on page. Takes screenshots at each step. Prints validation report to console.
   - Files: tests/e2e/quality-test.spec.ts
+  - Completed: 2026-03-27 — Interactive quality test with page.pause(), blue banner prompt, PDF upload, 7 screenshots, full validation report with 10+ checks
 
 - [ ] Task 4: Install GitHub CLI and create GitHub repository (P0)
   - Acceptance: `gh` is installed. A GitHub repo `paper2notebook` is created (public or private per user preference). Local repo has `origin` remote pointing to it. All current code is pushed to `main`. `.gitignore` updated to exclude `aws_cred.md`, `*accessKeys*`, `.env*`, `node_modules/`, `.next/`, `test-results/`.
