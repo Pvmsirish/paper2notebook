@@ -26,9 +26,10 @@
   - Files: .github/workflows/ci.yml
   - Completed: 2026-03-27 — CI workflow with test + security jobs, excludes quality-test, uploads screenshots as artifacts
 
-- [ ] Task 6: Create Dockerfile with Next.js standalone build (P0)
+- [x] Task 6: Create Dockerfile with Next.js standalone build (P0)
   - Acceptance: `docker build -t paper2notebook .` succeeds. `docker run -p 3000:3000 paper2notebook` starts the app and `curl http://localhost:3000` returns 200. Multi-stage build: deps → build → runtime. Final image under 200MB. Uses `output: "standalone"` in next.config.js.
   - Files: Dockerfile, next.config.js (update), .dockerignore
+  - Completed: 2026-03-27 — 3-stage Dockerfile (deps → build → runtime), standalone output, non-root user, .dockerignore
 
 - [ ] Task 7: Create docker-compose.yml for local deployment (P0)
   - Acceptance: `docker compose up --build` starts the app on port 3000. `docker compose down` stops it. Single service configuration with health check.

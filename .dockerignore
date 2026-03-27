@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+tests
+test-results
+*.md
+.env*
+aws_cred.md
+*accessKeys*
+sprints
