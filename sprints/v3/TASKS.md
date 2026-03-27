@@ -31,9 +31,10 @@
   - Files: Dockerfile, next.config.js (update), .dockerignore
   - Completed: 2026-03-27 — 3-stage Dockerfile (deps → build → runtime), standalone output, non-root user, .dockerignore
 
-- [ ] Task 7: Create docker-compose.yml for local deployment (P0)
+- [x] Task 7: Create docker-compose.yml for local deployment (P0)
   - Acceptance: `docker compose up --build` starts the app on port 3000. `docker compose down` stops it. Single service configuration with health check.
   - Files: docker-compose.yml
+  - Completed: 2026-03-27 — Single service with health check (wget), port 3000
 
 - [ ] Task 8: Write Terraform config for AWS ECS Fargate (P0)
   - Acceptance: `terraform/` directory contains: `main.tf` (provider + VPC + subnets), `ecr.tf` (repository), `ecs.tf` (cluster + task def + service), `alb.tf` (load balancer + target group + listener), `security.tf` (security groups), `iam.tf` (execution role + task role), `logs.tf` (CloudWatch log group), `variables.tf` (region, app name, image tag), `outputs.tf` (ALB DNS name, ECR URL). `terraform validate` passes.
