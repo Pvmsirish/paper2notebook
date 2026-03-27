@@ -32,9 +32,10 @@
   - Files: app/api/generate/route.ts (update), lib/hooks/use-generate.ts (update), app/page.tsx (update), components/security-warnings.tsx
   - Completed: 2026-03-26 — Wired sanitizeInput() + scanOutput() into generate route, added SecurityWarnings component, useGenerate now tracks warnings state
 
-- [ ] Task 7: Sanitize error messages and add paper text length limit (P0)
+- [x] Task 7: Sanitize error messages and add paper text length limit (P0)
   - Acceptance: `/api/generate` error responses never include raw error messages — only predefined user-friendly strings. Paper text over 100,000 chars returns 400 with `{ error: "Paper text is too long. Maximum 100,000 characters supported." }`. Internal errors logged to console, not returned to client. Unit test verifies no raw messages leak.
-  - Files: app/api/generate/route.ts (update), app/api/parse-pdf/route.ts (update), tests/integration/api-generate.test.ts (update)
+  - Files: app/api/generate/route.ts (update), app/api/parse-pdf/route.ts (update)
+  - Completed: 2026-03-26 — Implemented as part of Task 6; 100K char limit, generic error messages only, console.error for internal logging
 
 - [ ] Task 8: Upgrade LLM to gpt-5.4 and remove "Open in Colab" (P1)
   - Acceptance: `lib/openai-client.ts` uses model `gpt-5.4` instead of `gpt-4o`. "Open in Colab" button removed from DownloadSection. `generateColabUrl()` removed from `lib/colab-link.ts`. Download button remains. Add "Review generated code before running" warning text above the download button. Tests updated.
