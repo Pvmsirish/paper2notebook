@@ -1,6 +1,6 @@
 # Sprint v3 — Tasks
 
-## Status: In Progress
+## Status: Complete (Task 4 pending — requires `gh` CLI installation)
 
 - [x] Task 1: Commit v2 bug fixes (max_completion_tokens + CSP dev mode) (P0)
   - Acceptance: `lib/openai-client.ts` uses `max_completion_tokens` instead of `max_tokens`. `lib/security-headers.ts` adds `unsafe-eval` and `ws:` to CSP in development only. `app/page.tsx` has responsive classes. All changes committed. Existing tests still pass (`npx vitest run`).
@@ -46,6 +46,7 @@
   - Files: .github/workflows/deploy.yml
   - Completed: 2026-03-27 — CD workflow with concurrency control, CI gate, ECR push (sha + latest tags), ECS force-new-deployment
 
-- [ ] Task 10: Add minimal unit + integration tests for untested modules (P1)
+- [x] Task 10: Add minimal unit + integration tests for untested modules (P1)
   - Acceptance: Unit tests added for `lib/notebook-builder.ts` (valid nbformat output, code cell detection, markdown cell detection — 5+ tests). Integration test for `POST /api/parse-pdf` with a real sample PDF (returns text, rejects non-PDF, rejects oversized — 3+ tests). Integration test for `POST /api/generate` with mocked OpenAI (returns content+warnings, rejects missing auth, rejects empty text — 3+ tests). All tests pass with `npx vitest run`.
   - Files: tests/unit/notebook-builder.test.ts, tests/integration/api-parse-pdf.test.ts, tests/integration/api-generate.test.ts
+  - Completed: 2026-03-27 — Added mocked OpenAI success test + paperText length limit test to api-generate (5 tests total); existing notebook-builder (14 tests) and parse-pdf (5 tests) already had full coverage

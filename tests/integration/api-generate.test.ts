@@ -1,6 +1,22 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { POST } from "@/app/api/generate/route";
 import { NextRequest } from "next/server";
+
+// Mock the OpenAI client to avoid real API calls
+vi.mock("@/lib/openai-client", () => ({
+  createOpenAIClient: vi.fn(),
+  generateNotebook: vi.fn().mockResolvedValue(
+    [
+      "```markdown",
+      "# Test Notebook",
+      "```",
+      "",
+      "```python",
+      'print("hello")',
+      "```",
+    ].join("\n")
+  ),
+}));
 
 describe("POST /api/generate", () => {
   it("returns 401 when no Authorization header", async () => {
@@ -41,5 +57,36 @@ describe("POST /api/generate", () => {
     });
     const response = await POST(request);
     expect(response.status).toBe(400);
+  });
+
+  it("returns 400 when paperText exceeds max length", async () => {
+    const request = new NextRequest("http://localhost:3000/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer sk-test-key",
+      },
+      body: JSON.stringify({ paperText: "x".repeat(100001) }),
+    });
+    const response = await POST(request);
+    expect(response.status).toBe(400);
+    const data = await response.json();
+    expect(data.error).toMatch(/too long/i);
+  });
+
+  it("returns content and warnings on success with mocked OpenAI", async () => {
+    const request = new NextRequest("http://localhost:3000/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer sk-test-key",
+      },
+      body: JSON.stringify({ paperText: "A research paper about transformers." }),
+    });
+    const response = await POST(request);
+    expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.content).toBeDefined();
+    expect(Array.isArray(data.warnings)).toBe(true);
   });
 });
