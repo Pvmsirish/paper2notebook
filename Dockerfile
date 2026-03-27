@@ -1,22 +1,17 @@
-# Stage 1: Install dependencies
-FROM node:20-alpine AS deps
-WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
-
-# Stage 2: Build the application
+# Stage 1: Build the application (needs all deps including devDependencies)
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 3: Install pdf-parse separately to guarantee v1.1.1
+# Stage 2: Install pdf-parse separately to guarantee v1.1.1
 FROM node:20-alpine AS pdfparse
 WORKDIR /tmp/pdfparse
 RUN npm init -y && npm install pdf-parse@1.1.1
 
-# Stage 4: Production runtime
+# Stage 3: Production runtime
 FROM node:20-alpine AS runner
 WORKDIR /app
 
