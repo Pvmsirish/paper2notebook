@@ -1,5 +1,6 @@
-import * as pdfParseModule from "pdf-parse";
-const pdfParse = (pdfParseModule as any).default || pdfParseModule;
+// pdf-parse is excluded from webpack bundling via next.config.js serverExternalPackages
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const pdfParse = require("pdf-parse");
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
