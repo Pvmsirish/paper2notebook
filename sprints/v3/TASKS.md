@@ -21,9 +21,10 @@
   - Acceptance: `gh` is installed. A GitHub repo `paper2notebook` is created (public or private per user preference). Local repo has `origin` remote pointing to it. All current code is pushed to `main`. `.gitignore` updated to exclude `aws_cred.md`, `*accessKeys*`, `.env*`, `node_modules/`, `.next/`, `test-results/`.
   - Files: .gitignore
 
-- [ ] Task 5: Create GitHub Actions CI workflow (P0)
+- [x] Task 5: Create GitHub Actions CI workflow (P0)
   - Acceptance: `.github/workflows/ci.yml` runs on every push and PR. Jobs: (1) install deps, (2) run `npx vitest run`, (3) install Playwright chromium + run `npx playwright test` (excluding quality-test), (4) run `semgrep --config auto`, (5) run `npm audit --audit-level=high`. Workflow uses `ubuntu-latest`. PR checks block merge if any step fails.
   - Files: .github/workflows/ci.yml
+  - Completed: 2026-03-27 — CI workflow with test + security jobs, excludes quality-test, uploads screenshots as artifacts
 
 - [ ] Task 6: Create Dockerfile with Next.js standalone build (P0)
   - Acceptance: `docker build -t paper2notebook .` succeeds. `docker run -p 3000:3000 paper2notebook` starts the app and `curl http://localhost:3000` returns 200. Multi-stage build: deps → build → runtime. Final image under 200MB. Uses `output: "standalone"` in next.config.js.
