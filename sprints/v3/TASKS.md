@@ -1,6 +1,6 @@
 # Sprint v3 — Tasks
 
-## Status: Complete (Task 4 pending — requires `gh` CLI installation)
+## Status: Complete
 
 - [x] Task 1: Commit v2 bug fixes (max_completion_tokens + CSP dev mode) (P0)
   - Acceptance: `lib/openai-client.ts` uses `max_completion_tokens` instead of `max_tokens`. `lib/security-headers.ts` adds `unsafe-eval` and `ws:` to CSP in development only. `app/page.tsx` has responsive classes. All changes committed. Existing tests still pass (`npx vitest run`).
@@ -17,9 +17,10 @@
   - Files: tests/e2e/quality-test.spec.ts
   - Completed: 2026-03-27 — Interactive quality test with page.pause(), blue banner prompt, PDF upload, 7 screenshots, full validation report with 10+ checks
 
-- [ ] Task 4: Install GitHub CLI and create GitHub repository (P0)
+- [x] Task 4: Install GitHub CLI and create GitHub repository (P0)
   - Acceptance: `gh` is installed. A GitHub repo `paper2notebook` is created (public or private per user preference). Local repo has `origin` remote pointing to it. All current code is pushed to `main`. `.gitignore` updated to exclude `aws_cred.md`, `*accessKeys*`, `.env*`, `node_modules/`, `.next/`, `test-results/`.
   - Files: .gitignore
+  - Completed: 2026-03-27 — Public repo created at github.com/Pvmsirish/paper2notebook, all code pushed, .gitignore excludes secrets
 
 - [x] Task 5: Create GitHub Actions CI workflow (P0)
   - Acceptance: `.github/workflows/ci.yml` runs on every push and PR. Jobs: (1) install deps, (2) run `npx vitest run`, (3) install Playwright chromium + run `npx playwright test` (excluding quality-test), (4) run `semgrep --config auto`, (5) run `npm audit --audit-level=high`. Workflow uses `ubuntu-latest`. PR checks block merge if any step fails.
