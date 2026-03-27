@@ -109,9 +109,23 @@ export function useGenerate(): UseGenerateResult {
       const notebook = buildNotebook(content);
       const json = JSON.stringify(notebook, null, 2);
 
+      const finalWarnings = apiWarnings || [];
       setNotebookJson(json);
-      setWarnings(apiWarnings || []);
+      setWarnings(finalWarnings);
       setStep(GenerateStep.DONE);
+
+      // Save to history (fire and forget — don't block on IndexedDB)
+      import("@/lib/history-store").then(({ createHistoryEntry, saveHistoryEntry }) => {
+        const entry = createHistoryEntry({
+          fileName: file.name,
+          paperText: paperText,
+          notebookJson: json,
+          warnings: finalWarnings,
+        });
+        saveHistoryEntry(entry).catch(() => {
+          // IndexedDB save failed — non-critical
+        });
+      });
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "An unexpected error occurred";

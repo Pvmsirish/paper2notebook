@@ -42,9 +42,10 @@
   - Files: lib/openai-client.ts (update), components/download-section.tsx (update), lib/colab-link.ts (update), tests/unit/colab-link.test.ts (update)
   - Completed: 2026-03-26 — Upgraded to gpt-5.4, removed Colab button + generateColabUrl(), added review warning with ShieldAlert icon above download button
 
-- [ ] Task 9: Add generation history with IndexedDB (P1)
-  - Acceptance: After successful generation, notebook + metadata (id, createdAt, paperTitle, fileName, warnings) saved to IndexedDB store `paper2notebook/history`. History panel below the main form shows last 10 entries with paper title, date, and a "Download" button. Max 50 entries with FIFO eviction. Uses `idb` library. Clearing history is possible via a "Clear History" button.
+- [x] Task 9: Add generation history with IndexedDB (P1)
+  - Acceptance: After successful generation, notebook + metadata (id, createdAt, paperTitle, fileName, warnings) saved to IndexedDB store `paper2notebook/history`. History panel below the main form shows last 10 entries with paper title, date, and a "Download" button. Max 50 entries with FIFO eviction. Clearing history is possible via a "Clear History" button.
   - Files: lib/history-store.ts, components/history-panel.tsx, app/page.tsx (update), lib/hooks/use-generate.ts (update)
+  - Completed: 2026-03-26 — IndexedDB history with FIFO eviction (50 max), HistoryPanel showing last 10 entries with download buttons, auto-save after generation, clear button; 7 unit tests
 
 - [ ] Task 10: Add E2E tests for security features (P2)
   - Acceptance: Playwright tests verify: (1) rate limit returns 429 after repeated requests, (2) security headers present on responses, (3) warning banner appears when output contains flagged patterns (mock the API), (4) history panel shows after generation, (5) download warning text visible. Screenshots captured.

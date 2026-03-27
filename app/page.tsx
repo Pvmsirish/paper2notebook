@@ -8,6 +8,7 @@ import { ProgressDisplay } from "@/components/progress-display";
 import { DownloadSection } from "@/components/download-section";
 import { DemoButton } from "@/components/demo-button";
 import { SecurityWarnings } from "@/components/security-warnings";
+import { HistoryPanel } from "@/components/history-panel";
 import { useGenerate, GenerateStep } from "@/lib/hooks/use-generate";
 import { X } from "lucide-react";
 
@@ -76,6 +77,8 @@ export default function Home() {
           {step === GenerateStep.DONE && notebookJson && (
             <DownloadSection notebookJson={notebookJson} />
           )}
+
+          <HistoryPanel />
 
           {error && (
             <div
